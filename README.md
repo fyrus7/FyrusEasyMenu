@@ -1,4 +1,4 @@
 # DisplayMenu
 
-* a simple Display Menu utilising BUttonGestues library
+* simple Display Menu with ButtonGestues library
 * 1 button navigation
