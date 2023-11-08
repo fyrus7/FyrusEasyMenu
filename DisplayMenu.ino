@@ -1,7 +1,6 @@
 /*
  *  Licence under: GNU General Public License v3.0
  *
- *
  * ||  Display Menu by Fyrus  ||
  * 
  * a simple menu navigation for 1 button.
@@ -15,16 +14,13 @@
  * 
  */
 
-
 #include <SPI.h>
 #include <Adafruit_SSD1306.h>
 #include <Adafruit_GFX.h>
 #include <ButtonGestures.h>
 
-
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
-
 
 // Declaration for SSD1306 display connected using software SPI:
 #define OLED_CLK       8
@@ -35,13 +31,12 @@
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT,
 OLED_MOSI, OLED_CLK, OLED_DC, OLED_RESET, OLED_CS);
 
-
 // Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
 //#define OLED_RESET     4
 //Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 
-#define   BUTTON_PIN   2
+#define BUTTON_PIN 2 // button at Pin D2 + GND
 ButtonGestures  button(BUTTON_PIN, LOW, INPUT_PULLUP);
 
 
@@ -49,15 +44,15 @@ boolean OK   = false;
 boolean DOWN = false;
 boolean BACK = false;
 
-int PAGE  = 0;
-int mainMenu = 1;
+int PAGE = 0; // menu start at
+int Menu = 1; // selection start at
 
 
 void setup() {
 
-    button.set_callback(SHORT1, cb_down); // normal single click and release
-    button.set_callback(SHORT2, cb_ok);   // double click and release
-    button.set_callback( LONG1, cb_back); // normal single click and hold
+    button.set_callback(SHORT1, P_Down); // single click and release
+    button.set_callback(SHORT2, P_Ok);   // double click and release
+    button.set_callback( LONG1, P_Back); // single click and hold
 
     display.begin(SSD1306_SWITCHCAPVCC, 0x3D);
 
@@ -75,25 +70,25 @@ void loop() {
   // when click is pressed
   if (DOWN) {
     DOWN = false;
-    if (++mainMenu > 5){ // max main menu item
-      mainMenu = 1;      // back to 1 after end scroll
+    if (++Menu > 5){ // max selection in top menu item
+      Menu = 1;      // back to selection 1 after end scroll
     }
   }
 
   // when double click is pressed
   if (OK) {
     OK = false;
-    if (PAGE == 0 && mainMenu == 0) {
+    if (PAGE == 0 && Menu == 0) {
       PAGE = 0;
-    } else if (PAGE == 0 && mainMenu == 1) {
+    } else if (PAGE == 0 && Menu == 1) {
       PAGE = 1;
-    } else if (PAGE == 0 && mainMenu == 2) {
+    } else if (PAGE == 0 && Menu == 2) {
       PAGE = 2;
-    } else if (PAGE == 0 && mainMenu == 3) {
+    } else if (PAGE == 0 && Menu == 3) {
       PAGE = 3;
-    } else if (PAGE == 0 && mainMenu == 4) {
+    } else if (PAGE == 0 && Menu == 4) {
       PAGE = 4;
-    } else if (PAGE == 0 && mainMenu == 5) {
+    } else if (PAGE == 0 && Menu == 5) {
       PAGE = 5;
     }
   }
@@ -102,11 +97,21 @@ void loop() {
   if (BACK) {
     BACK = false;
     if (PAGE == 1 || PAGE == 2 || PAGE == 3 || PAGE == 4 || PAGE == 5) {
-      PAGE = 0;
+      PAGE = 0; // back to top menu
     }
   }
 }
 
+// this line must be outside loop.
+void P_Down(){
+  DOWN = true;
+}
+void P_Ok(){
+  OK = true;
+}
+void P_Back(){
+  BACK = true;
+}
 
 
 // Display for main menu
@@ -118,7 +123,8 @@ void TopMenu() {
     display.setCursor(28, 0);
     display.print("DISPLAY MENU");
 
-    if (mainMenu == 1) {
+// Selection in main menu
+    if (Menu == 1) {
       display.setCursor(5, 16);
       display.setTextColor(WHITE);
       display.print("> main menu 1");
@@ -128,7 +134,7 @@ void TopMenu() {
       display.print("  main menu 1");
     }
 
-    if (mainMenu == 2) {
+    if (Menu == 2) {
       display.setCursor(5, 26);
       display.setTextColor(WHITE);
       display.print("> main menu 2");
@@ -138,7 +144,7 @@ void TopMenu() {
       display.print("  main menu 2");
     }
 
-    if (mainMenu == 3) {
+    if (Menu == 3) {
       display.setCursor(5, 36);
       display.setTextColor(WHITE);
       display.print("> main menu 3");
@@ -148,7 +154,7 @@ void TopMenu() {
       display.print("  main menu 3");
     }
 
-    if (mainMenu == 4) {
+    if (Menu == 4) {
       display.setCursor(5, 46);
       display.setTextColor(WHITE);
       display.print("> main menu 4");
@@ -158,7 +164,7 @@ void TopMenu() {
       display.print("  main menu 4");
     }
 
-     if (mainMenu == 5) {
+     if (Menu == 5) {
       display.setCursor(5, 56);
       display.setTextColor(WHITE);
       display.print("> main menu 5");
@@ -169,7 +175,7 @@ void TopMenu() {
     }
 
 
-    // Display for sub menu
+    // Display for sub page
   } else if (PAGE == 1) {
     display.clearDisplay();
     display.setTextSize(2);
@@ -201,17 +207,5 @@ void TopMenu() {
     display.setCursor(30, 25);
     display.print("SUB 5");
   }
-
   display.display();
-}
-
-
-void cb_down(){
-  DOWN = true;
-}
-void cb_ok(){
-  OK = true;
-}
-void cb_back(){
-  BACK = true;
 }
