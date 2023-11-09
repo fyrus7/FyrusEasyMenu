@@ -1,6 +1,4 @@
 /*
- *  Licence under: GNU General Public License v3.0
- *
  * ||  Display Menu by Fyrus  ||
  * 
  * a simple menu navigation for 1 button.
@@ -14,13 +12,16 @@
  * 
  */
 
+
 #include <SPI.h>
 #include <Adafruit_SSD1306.h>
 #include <Adafruit_GFX.h>
 #include <ButtonGestures.h>
 
+
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
+
 
 // Declaration for SSD1306 display connected using software SPI:
 #define OLED_CLK       8
@@ -31,28 +32,29 @@
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT,
 OLED_MOSI, OLED_CLK, OLED_DC, OLED_RESET, OLED_CS);
 
+
 // Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
 //#define OLED_RESET     4
 //Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 
-#define BUTTON_PIN 2 // button at Pin D2 + GND
-ButtonGestures  button(BUTTON_PIN, LOW, INPUT_PULLUP);
+#define   BUTTON_PIN   2
+ButtonGestures  Fyrus(BUTTON_PIN, LOW, INPUT_PULLUP);
 
 
 boolean OK   = false;
 boolean DOWN = false;
 boolean BACK = false;
 
-int PAGE = 0; // menu start at
-int Menu = 1; // selection start at
+int PAGE  = 0;
+int Menu = 1;
 
 
 void setup() {
 
-    button.set_callback(SHORT1, P_Down); // single click and release
-    button.set_callback(SHORT2, P_Ok);   // double click and release
-    button.set_callback( LONG1, P_Back); // single click and hold
+    Fyrus.set_callback(SHORT1, F_Down); // normal single click and release
+    Fyrus.set_callback(SHORT2, F_Ok);   // double click and release
+    Fyrus.set_callback( LONG1, F_Back); // normal single click and hold
 
     display.begin(SSD1306_SWITCHCAPVCC, 0x3D);
 
@@ -62,7 +64,7 @@ void setup() {
 
 void loop() {
 
-  button.check_button();
+  Fyrus.check_button();
   
   TopMenu();
 
@@ -70,8 +72,8 @@ void loop() {
   // when click is pressed
   if (DOWN) {
     DOWN = false;
-    if (++Menu > 5){ // max selection in top menu item
-      Menu = 1;      // back to selection 1 after end scroll
+    if (++Menu > 5){ // max main menu item
+      Menu = 1;      // back to 1 after end scroll
     }
   }
 
@@ -97,21 +99,22 @@ void loop() {
   if (BACK) {
     BACK = false;
     if (PAGE == 1 || PAGE == 2 || PAGE == 3 || PAGE == 4 || PAGE == 5) {
-      PAGE = 0; // back to top menu
+      PAGE = 0;
     }
   }
 }
 
-// this line must be outside loop.
-void P_Down(){
+
+void F_Down(){
   DOWN = true;
 }
-void P_Ok(){
+void F_Ok(){
   OK = true;
 }
-void P_Back(){
+void F_Back(){
   BACK = true;
 }
+
 
 
 // Display for main menu
@@ -123,7 +126,6 @@ void TopMenu() {
     display.setCursor(28, 0);
     display.print("DISPLAY MENU");
 
-// Selection in main menu
     if (Menu == 1) {
       display.setCursor(5, 16);
       display.setTextColor(WHITE);
@@ -175,7 +177,7 @@ void TopMenu() {
     }
 
 
-    // Display for sub page
+    // Display for sub menu
   } else if (PAGE == 1) {
     display.clearDisplay();
     display.setTextSize(2);
@@ -207,5 +209,6 @@ void TopMenu() {
     display.setCursor(30, 25);
     display.print("SUB 5");
   }
+
   display.display();
 }
