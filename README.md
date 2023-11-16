@@ -5,7 +5,7 @@
 
 # How To
 
-* click once &nbsp; &nbsp; &nbsp; = scroll down
+* click once &nbsp; &nbsp; &nbsp;= scroll down
 * double click = select
 * click & hold = go back
 
