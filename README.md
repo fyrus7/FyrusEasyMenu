@@ -1,7 +1,13 @@
-# DisplayMenu
+# Fyrus Easy Menu
 
-* simple Display Menu with 1 button navigation
+* simple display menu with 1 button navigation
 * library needed: ButtonGestures
+
+# How To
+
+* click once   = scroll down
+* double click = select
+* click & hold = go back
 
 <p float="left">
 <img src="image/IMG20231116092829.jpg" width="40%" />
