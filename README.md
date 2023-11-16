@@ -1,6 +1,6 @@
 # DisplayMenu
 
-* simple Display Menu with ButtonGestues library
-* 1 button navigation
+* simple Display Menu with 1 button navigation
+* library needed: ButtonGestures
 
-<img src="https://github.com/fyrus7/DisplayMenu/blob/main/image/IMG20231107120054.jpg" width="50%" height="50%"> <img src="https://github.com/fyrus7/DisplayMenu/blob/main/image/IMG20231107120106.jpg" width="50%" height="50%">
+![pic1](https://github.com/fyrus7/FyrusEasyMenu/blob/main/image/IMG20231116092829.jpg width="50%" height="50%") | ![pic2](https://github.com/fyrus7/FyrusEasyMenu/blob/main/image/IMG20231116092730.jpg" width="50%" height="50%")
