@@ -5,9 +5,9 @@
 
 # How To
 
-* click once&nbsp;&nbsp;&nbsp;&nbsp;= scroll down
-* double click = select
-* click & hold = go back
+* click once&nbsp;&nbsp;&nbsp;&nbsp;= Scroll
+* click & hold = Select
+* double click = Back
 
 # Example Display
 <p float="left">
