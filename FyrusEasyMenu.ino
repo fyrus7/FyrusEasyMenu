@@ -2,6 +2,7 @@
  * ||  FYRUS EASY MENU  ||
  * 
  * a simple menu navigation for 1 button.
+ * with ButtonGestures library
  * 
  * Click / Double Click / Hold
  * 
@@ -73,8 +74,10 @@ void loop() {
   }
   if ((millis() - presstime) > 400 && buttonState == 1)
   {
-    if (tapCounter == 2) // Double Click
+    if (tapCounter == 1) // Hold
     {
+      if (timediff >= 400)
+      {
       if (PAGE == 0 && Menu == 0) {
         PAGE = 0;
       } else if (PAGE == 0 && Menu == 1) {
@@ -89,19 +92,17 @@ void loop() {
         PAGE = 5; // go to sub 5
       }
     }
-    else if (tapCounter == 1 ) // Hold
+    else // Single Click
     {
-      if (timediff >= 400)
+      if (++Menu > 5){ // max main menu item
+        Menu = 1;      // back to 1 after end scroll
+      }
+    }
+   }
+    else if (tapCounter == 2) // Double Click
       {
       if (PAGE == 1 || PAGE == 2 || PAGE == 3 || PAGE == 4 || PAGE == 5) {
       PAGE = 0;
-    }
-      }
-      else // Single Click
-      {
-      if (++Menu > 5){ // max main menu item
-      Menu = 1;      // back to 1 after end scroll
-      }
       }
     }
     tapCounter = 0;
