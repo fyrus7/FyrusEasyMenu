@@ -1,7 +1,7 @@
 # Fyrus Easy Menu
 
 * simple display menu with 1 button navigation
-* library needed: ButtonGestures
+* without any button library
 
 # How To
 
