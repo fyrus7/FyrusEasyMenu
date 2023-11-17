@@ -2,7 +2,6 @@
  * ||  FYRUS EASY MENU  ||
  * 
  * a simple menu navigation for 1 button.
- * with ButtonGestures library
  * 
  * Click / Double Click / Hold
  * 
