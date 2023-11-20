@@ -45,6 +45,8 @@ void setup() {
 
 void loop() {
 
+  TopMenu(); // show Main Menu in loop.
+
   int reading = digitalRead(Click);
 
   if (reading != lastButtonState) {
@@ -78,41 +80,22 @@ void loop() {
     {
       if (timediff >= 400)
       {
-      if (PAGE == 0 && Menu == 0) {
-        PAGE = 0;
-      } else if (PAGE == 0 && Menu == 1) {
-        PAGE = 1; // go to sub 1
-      } else if (PAGE == 0 && Menu == 2) {
-        PAGE = 2; // go to sub 2
-      } else if (PAGE == 0 && Menu == 3) {
-        PAGE = 3; // go to sub 3
-      } else if (PAGE == 0 && Menu == 4) {
-        PAGE = 4; // go to sub 4
-      } else if (PAGE == 0 && Menu == 5) {
-        PAGE = 5; // go to sub 5
+      SELECT();
       }
-    }
-    else // Single Click
-    {
-      if (++Menu > 5){ // max main menu item
-        Menu = 1;      // back to 1 after end scroll
-      }
-    }
-   }
-    else if (tapCounter == 2) // Double Click
+      else // Single Click
       {
-      if (PAGE == 1 || PAGE == 2 || PAGE == 3 || PAGE == 4 || PAGE == 5) {
-      PAGE = 0;
+      SCROLL();
       }
-    }
+      }
+      else if (tapCounter == 2) // Double Click
+      {
+      RETURN();
+      }
     tapCounter = 0;
   }
   lastButtonState = reading;
 
-  
-  TopMenu(); // show Top Menu in loop.
-
-  }
+}
 
 
 // Display for main menu.
@@ -181,6 +164,37 @@ void TopMenu() {
   }
 
   display.display();
+}
+
+
+void SELECT(){
+    if (PAGE == 0 && Menu == 0) {
+        PAGE = 0;
+      } else if (PAGE == 0 && Menu == 1) {
+        PAGE = 1; // go to sub 1
+      } else if (PAGE == 0 && Menu == 2) {
+        PAGE = 2; // go to sub 2
+      } else if (PAGE == 0 && Menu == 3) {
+        PAGE = 3; // go to sub 3
+      } else if (PAGE == 0 && Menu == 4) {
+        PAGE = 4; // go to sub 4
+      } else if (PAGE == 0 && Menu == 5) {
+        PAGE = 5; // go to sub 5
+      }
+}
+
+
+void SCROLL(){
+  if (++Menu > 5){ // 0 to max main menu item
+        Menu = 1;  // back to 1 after end scroll
+  }
+}
+
+
+void RETURN(){
+  if (PAGE == 1 || PAGE == 2 || PAGE == 3 || PAGE == 4 || PAGE == 5) {
+      PAGE = 0;
+  }
 }
 
 
