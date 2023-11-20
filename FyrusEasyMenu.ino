@@ -2,13 +2,12 @@
  * ||  FYRUS EASY MENU  ||
  * 
  * a simple menu navigation for 1 button.
- * with ButtonGestures library
  * 
  * Click / Double Click / Hold
  * 
  * click once to scroll down.
- * click twice to enter.
- * click and hold to go back.
+ * click and hold to enter.
+ * click twice to go back.
  * 
  */
 
