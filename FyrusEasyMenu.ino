@@ -99,8 +99,6 @@ void loop() {
 
 // Display for main menu.
 void TopMenu() {
-
-  
   if (PAGE == 0) {
     display.clearDisplay();
     display.setTextSize(1);
