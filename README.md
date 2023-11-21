@@ -5,8 +5,8 @@
 
 # How To
 
-* click once&nbsp;&nbsp;&nbsp;&nbsp;= Scroll
-* click & hold = Select
+* short click &nbsp;&nbsp;&nbsp;&nbsp;= Scroll
+* click held = Select
 * double click = Back
 
 # Example Display
